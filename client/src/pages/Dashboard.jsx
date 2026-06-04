@@ -24,9 +24,9 @@ function Dashboard() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/resume/upload",
-        formData
-      );
+  "https://ai-resume-analyzer-c1px.onrender.com/api/resume/upload",
+  formData
+);
 
       setAtsScore(res.data.atsScore);
       setMatchedSkills(res.data.matchedKeywords || []);
