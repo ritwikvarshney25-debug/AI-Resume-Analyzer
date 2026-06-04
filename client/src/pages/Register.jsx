@@ -21,6 +21,8 @@ function Register() {
 
       alert(res.data.message);
 
+      window.location.href = "/";
+
     } catch (error) {
       alert(
         error.response?.data?.message || "Registration Failed"

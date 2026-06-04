@@ -20,6 +20,8 @@ function Login() {
       alert(res.data.message);
 
       localStorage.setItem("token", res.data.token);
+       
+      window.location.href = "/dashboard";
 
     } catch (error) {
       alert(
