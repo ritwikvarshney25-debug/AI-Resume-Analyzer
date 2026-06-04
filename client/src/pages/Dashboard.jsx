@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+    const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [atsScore, setAtsScore] = useState(0);
   const [matchedSkills, setMatchedSkills] = useState([]);
@@ -42,7 +44,7 @@ function Dashboard() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.href = "/";
+    navigate("/");
   };
 
   return (
@@ -99,9 +101,9 @@ function Dashboard() {
       </button>
 
       <button
-  onClick={() => (window.location.href = "/profile")}
+  onClick={() => navigate("/profile")}
   style={{
-    backgroundColor: "#2563eb",
+    backgroundColor: "#c0d1f6",
     color: "white",
     padding: "10px 15px",
     border: "none",
