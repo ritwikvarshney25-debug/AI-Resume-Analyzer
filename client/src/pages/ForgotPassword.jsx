@@ -18,9 +18,8 @@ function ForgotPassword() {
       alert(res.data.message);
 
     } catch (error) {
-  console.log(error);
-  console.log(error.response?.data);
-  alert(error.response?.data?.message || "Password Reset Failed");
+  console.log(error.response);
+  alert(JSON.stringify(error.response?.data));
 }
   };
 
