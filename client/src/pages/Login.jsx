@@ -21,6 +21,8 @@ function Login() {
       alert(res.data.message);
 
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("email", email);
+      localStorage.setItem("name", "Ritwik");
        
       window.location.href = "/dashboard";
 
