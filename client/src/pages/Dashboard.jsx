@@ -275,9 +275,6 @@ const chartData = [
         }}
       >
 
-        
-        <h2>Resume Statistics</h2>
-
         <div
   style={{
     display: "flex",
@@ -326,8 +323,6 @@ const chartData = [
   </div>
 </div>
 
-        <p>✅ Matched Skills: {matchedSkills.length}</p>
-        <p>❌ Missing Skills: {missingSkills.length}</p>
         <p>📄 Resume Length: {resumeText.length} Characters</p>
 
         <h2 style={{ marginTop: "30px" }}>
