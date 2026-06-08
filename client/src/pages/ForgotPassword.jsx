@@ -1,10 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ForgotPassword() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
-
   const handleReset = async () => {
     try {
       const res = await axios.post(
@@ -16,10 +17,16 @@ function ForgotPassword() {
       );
 
       alert(res.data.message);
+      navigate("/");
 
     } catch (error) {
-  console.log(error.response);
-  alert(JSON.stringify(error.response?.data));
+  console.log(error);
+  console.log(error.response?.data);
+  alert(
+    error.response?.data?.message ||
+    error.response?.data?.error ||
+    "Password Reset Failed"
+  );
 }
   };
 

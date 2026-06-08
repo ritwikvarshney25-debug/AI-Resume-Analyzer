@@ -1,3 +1,12 @@
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -47,6 +56,14 @@ function Dashboard() {
     navigate("/");
   };
 
+const chartData = [
+  {
+    name: "Skills",
+    Matched: matchedSkills.length,
+    Missing: missingSkills.length,
+  },
+];
+
   return (
     <div
       style={{
@@ -67,8 +84,8 @@ function Dashboard() {
       >
         <h1
           style={{
-            color: "#2563eb",
-            fontSize: "40px",
+            color: "#0e0e0e",
+            fontSize: "50px",
           }}
         >
           AI Resume Analyzer
@@ -150,7 +167,7 @@ function Dashboard() {
       <button
         onClick={handleUpload}
         style={{
-          backgroundColor: "#2563eb",
+          backgroundColor: "#1346b5",
           color: "white",
           padding: "10px 20px",
           border: "none",
@@ -179,7 +196,7 @@ function Dashboard() {
         style={{
           padding: "25px",
           marginTop: "20px",
-          width: "300px",
+          width: "220px",
           borderRadius: "15px",
           textAlign: "center",
           boxShadow: "0px 4px 12px rgba(7,0,0,0.2)",
@@ -190,7 +207,7 @@ function Dashboard() {
 
         <h1
           style={{
-            fontSize: "60px",
+            fontSize: "48px",
             color:
               atsScore >= 80
                 ? "#22c55e"
@@ -220,59 +237,75 @@ function Dashboard() {
           backgroundColor: darkMode ? "#1e1e1e" : "#f8f9fa",
         }}
       >
+
+        
         <h2>Resume Statistics</h2>
+
+        <div
+  style={{
+    display: "flex",
+    gap: "50px",
+    marginTop: "20px",
+  }}
+>
+  <div>
+    <h2>Matched Skills ✅</h2>
+
+    {matchedSkills.map((skill, index) => (
+      <span
+        key={index}
+        style={{
+          backgroundColor: "green",
+          color: "white",
+          padding: "8px 12px",
+          borderRadius: "20px",
+          margin: "5px",
+          display: "inline-block",
+        }}
+      >
+        {skill}
+      </span>
+    ))}
+  </div>
+
+  <div>
+    <h2>Missing Skills ❌</h2>
+
+    {missingSkills.map((skill, index) => (
+      <span
+        key={index}
+        style={{
+          backgroundColor: "red",
+          color: "white",
+          padding: "8px 12px",
+          borderRadius: "20px",
+          margin: "5px",
+          display: "inline-block",
+        }}
+      >
+        {skill}
+      </span>
+    ))}
+  </div>
+</div>
 
         <p>✅ Matched Skills: {matchedSkills.length}</p>
         <p>❌ Missing Skills: {missingSkills.length}</p>
         <p>📄 Resume Length: {resumeText.length} Characters</p>
-      </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "50px",
-          marginTop: "20px",
-        }}
-      >
-        <div>
-          <h2>Matched Skills ✅</h2>
+        <h2 style={{ marginTop: "30px" }}>
+  Skills Analytics 📊
+</h2>
 
-          {matchedSkills.map((skill, index) => (
-            <span
-              key={index}
-              style={{
-                backgroundColor: "green",
-                color: "white",
-                padding: "8px 12px",
-                borderRadius: "20px",
-                margin: "5px",
-                display: "inline-block",
-              }}
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-
-        <div>
-          <h2>Missing Skills ❌</h2>
-
-          {missingSkills.map((skill, index) => (
-            <span
-              key={index}
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                padding: "8px 12px",
-                borderRadius: "20px",
-                margin: "5px",
-                display: "inline-block",
-              }}
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
+<ResponsiveContainer width="100%" height={300}>
+  <BarChart data={chartData}>
+    <XAxis dataKey="name" />
+    <YAxis />
+    <Tooltip />
+    <Bar dataKey="Matched" fill="#22c55e" />
+    <Bar dataKey="Missing" fill="#ef4444" />
+  </BarChart>
+</ResponsiveContainer>
       </div>
 
       <hr />
@@ -288,7 +321,7 @@ function Dashboard() {
           padding: "15px",
           borderRadius: "10px",
           border: "1px solid #eaa0a0",
-          backgroundColor: "#74a7d9",
+          backgroundColor: "#c7e4e3",
         }}
       />
 
