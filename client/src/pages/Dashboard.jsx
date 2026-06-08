@@ -193,16 +193,53 @@ const chartData = [
       <hr />
 
       <div
-        style={{
-          padding: "25px",
-          marginTop: "20px",
-          width: "220px",
-          borderRadius: "15px",
-          textAlign: "center",
-          boxShadow: "0px 4px 12px rgba(7,0,0,0.2)",
-          backgroundColor: darkMode ? "#2f2e2e" : "#d0dfed",
-        }}
-      >
+  style={{
+    display: "flex",
+    gap: "20px",
+    marginTop: "25px",
+  }}
+>
+  <div
+    style={{
+      flex: 1,
+      background: "#2563eb",
+      color: "white",
+      padding: "20px",
+      borderRadius: "15px",
+      textAlign: "center",
+    }}
+  >
+    <h3>ATS Score</h3>
+    <h1>{atsScore}%</h1>
+  </div>
+
+  <div
+    style={{
+      flex: 1,
+      background: "#22c55e",
+      color: "white",
+      padding: "20px",
+      borderRadius: "15px",
+      textAlign: "center",
+    }}
+  >
+    <h3>Matched Skills</h3>
+    <h1>{matchedSkills.length}</h1>
+  </div>
+
+  <div
+    style={{
+      flex: 1,
+      background: "#ef4444",
+      color: "white",
+      padding: "20px",
+      borderRadius: "15px",
+      textAlign: "center",
+    }}
+  >
+    <h3>Missing Skills</h3>
+    <h1>{missingSkills.length}</h1>
+</div>
         <h2>ATS Score</h2>
 
         <h1
