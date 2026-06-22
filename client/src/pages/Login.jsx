@@ -68,7 +68,7 @@ function Login() {
   style={{
     marginBottom: "15px",
     color: "#111111",
-    fontSize: "56px",
+    fontSize: "58px",
     lineHeight: "1.1",
     fontWeight: "500",
     textAlign: "center",
@@ -98,13 +98,15 @@ function Login() {
               onChange={(e) =>
                 setEmail(e.target.value)
               }
-              style={{
-                width: "100%",
-                padding: "14px",
-                borderRadius: "10px",
-                border: "1px solid #b46262",
-                marginBottom: "15px",
-              }}
+             style={{
+              width: "100%",
+              padding: "14px",
+              borderRadius: "10px",
+              border: "1px solid #e5e7eb",
+              fontSize: "16px",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+              marginBottom: "15px",
+            }}
             />
 
             <input
@@ -134,11 +136,33 @@ function Login() {
                 color: "white",
                 fontSize: "16px",
                 cursor: "pointer",
+                boxShadow:
+      "0 8px 20px rgba(37,99,235,0.3)",
               }}
             >
               Login
             </button>
           </form>
+
+          <div
+  style={{
+    marginTop: "20px",
+    display: "flex",
+    justifyContent: "center",
+  }}
+>
+  <GoogleLogin
+    onSuccess={(credentialResponse) => {
+      console.log(credentialResponse);
+      localStorage.setItem("token", "google-login");
+      localStorage.setItem("name", "Google User");
+      window.location.href = "/dashboard";
+    }}
+    onError={() => {
+      alert("Google Login Failed");
+    }}
+  />
+</div>
 
           <p style={{ marginTop: "15px" }}>
             <a href="/forgot-password">
