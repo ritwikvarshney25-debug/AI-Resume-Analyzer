@@ -35,17 +35,37 @@ router.post(
       const resumeText = pdfData.text.toLowerCase();
 
 const keywords = [
-  "python",
-  "java",
-  "javascript",
-  "react",
-  "node",
-  "mongodb",
-  "sql",
-  "machine learning",
-  "html",
-  "css",
-  "express"
+  "Python",
+  "Java",
+  "Javascript",
+  "React.js",
+  "Node.js",
+  "MongoDB",
+  "SQL",
+  "Machine Learning",
+  "HTML",
+  "CSS",
+  "Express.js",
+  "C",
+  "C++",
+  "PHP",
+  "Node.js",
+  "MySQL",
+  "Oracle SQL",
+  "Amazon Web Services (AWS)",
+  "Microsoft Azure",
+  "Excel",
+  "Power BI",
+  "Python (Pandas, NumPy)",
+  "Network Security",
+  "Android Development",
+  "DSA",
+  "Generative AI",
+  "Linux",
+  "Communication Skills",
+  "Data Analytics",
+  "Git & GitHub",
+
 ];
 
 let matchedKeywords = [];

@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    
   },
+   
+   resetOtp: String,
+   otpExpiry: Date,
 });
 
 module.exports = mongoose.model("User", userSchema);

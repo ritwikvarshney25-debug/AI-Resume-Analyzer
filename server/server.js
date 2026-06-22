@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const passport = require("./passport");
+// const passport = require("./passport");
 require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
@@ -21,12 +21,13 @@ app.use(
   })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/resume", resumeRoutes);
 
+/*
 app.get(
   "/api/auth/github",
   passport.authenticate("github", {
@@ -43,6 +44,7 @@ app.get(
     res.redirect("https://ai-resume-analyzer-tawny-rho.vercel.app/dashboard");
   }
 );
+*/
 
 mongoose
   .connect(process.env.MONGO_URI)
