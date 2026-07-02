@@ -59,7 +59,7 @@ function Dashboard() {
 
     try {
       const res = await axios.post(
-        "https://ai-resume-analyzer-c1px.onrender.com/api/resume/upload",
+        "http://localhost:5000/api/resume/upload",
         formData
       );
 
@@ -68,12 +68,24 @@ function Dashboard() {
       setMissingSkills(res.data.missingKeywords || []);
       setResumeText(res.data.text || "");
     } catch (error) {
-      console.log(error);
-      alert("Upload Failed");
-    }
+  console.log("FULL ERROR:", error);
+  console.log("RESPONSE:", error.response);
+  console.log("DATA:", error.response?.data);
+
+  alert(
+    error.response?.data?.error ||
+    error.message ||
+    "Upload Failed"
+  );
+}
 
     setLoading(false);
   };
+
+  formData.append(
+  "userName",
+  localStorage.getItem("name")
+);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -87,8 +99,11 @@ function Dashboard() {
     const element = reportRef.current;
 
     const canvas = await html2canvas(element, {
-      scale: 2,
-    });
+  scale: 2,
+  useCORS: true,
+  allowTaint: true,
+  backgroundColor: "#ffffff",
+});
 
     const imgData = canvas.toDataURL("image/png");
 
@@ -269,7 +284,8 @@ const COLORS = [
 
       <h2
   style={{
-    color: "headingColor",
+    fontSize: "22px",
+    color: darkMode ? "#ffffff" : "#000000",
   }}
 >
   Upload Resume
@@ -356,6 +372,22 @@ const COLORS = [
 </button>
 </div>
 
+<button
+  onClick={() => navigate("/history")}
+  style={{
+    padding: "14px 18px",
+    background: "#e649d9",
+    color: "white",
+    border: "none",
+    borderRadius: "12px",
+    cursor: "pointer",
+    marginLeft: "1px",
+    fontWeight: "bold",
+  }}
+>
+  📜 View History
+</button>
+
 {atsScore > 0 && (
   <button
     onClick={downloadReport}
@@ -390,7 +422,7 @@ const COLORS = [
 
     <img
   src={Watermark}
-  alt="Watermark"
+  alt="watermak"
   style={{
     position: "absolute",
     top: "50%",
@@ -892,7 +924,8 @@ const COLORS = [
 >
   <h2
   style={{
-    color: "headingColor",
+    fontSize: "21px",
+    color: darkMode ? "#ffffff" : "#000000",
   }}
 >
   📋 Resume Summary
@@ -931,25 +964,25 @@ const COLORS = [
 
   <h2
   style={{
-    textAlign: "center",
-    marginTop: "20px",
-    marginBottom: "15px",
-    color: "headingColor",
+    fontSize: "22px",
+    color: darkMode ? "#ffffff" : "#000000",
   }}
 >
-  🥧 Skills Distribution
+  🧭 Skills Distribution
 </h2>
 
 <ResponsiveContainer width="100%" height={220}>
   <PieChart>
     <Pie
-      data={pieData}
-      cx="50%"
-      cy="50%"
-      outerRadius={90}
-      dataKey="value"
-      label
-    >
+  data={pieData}
+  dataKey="value"
+  nameKey="name"
+  cx="50%"
+  cy="50%"
+  outerRadius={85}
+  fill="#8884d8"
+  label={false}
+>
       {pieData.map((entry, index) => (
         <Cell
           key={index}
