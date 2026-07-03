@@ -56,6 +56,7 @@ function Dashboard() {
 
     const formData = new FormData();
     formData.append("resume", file);
+    formData.append("userName", localStorage.getItem("name"));
 
     try {
       const res = await axios.post(
@@ -81,11 +82,6 @@ function Dashboard() {
 
     setLoading(false);
   };
-
-  formData.append(
-  "userName",
-  localStorage.getItem("name")
-);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
