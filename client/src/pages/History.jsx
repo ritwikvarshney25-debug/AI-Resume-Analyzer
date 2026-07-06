@@ -61,8 +61,8 @@ const todayReports = history.filter(
   const fetchHistory = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/resume/history"
-      );
+      "https://ai-resume-analyzer-backend-xefi.onrender.com/api/resume/history"
+);
 
       setHistory(res.data);
     } catch (error) {
@@ -78,8 +78,8 @@ const todayReports = history.filter(
   const deleteHistory = async (id) => {
   try {
     await axios.delete(
-      `http://localhost:5000/api/resume/history/${id}`
-    );
+  `https://ai-resume-analyzer-backend-xefi.onrender.com/api/resume/history/${id}`
+);
 
     // History ko dobara load karo
     fetchHistory();
@@ -140,7 +140,12 @@ const filteredHistory = history.filter((item) =>
   style={{
     display: "grid",
     gridTemplateColumns:
-      "repeat(4,1fr)",
+  window.innerWidth < 768
+    ? "1fr"
+    : window.innerWidth < 1024
+    ? "1fr 1fr"
+    : "repeat(4,1fr)",
+    width: "100%",
     gap: "20px",
     marginBottom: "30px",
   }}
@@ -274,6 +279,12 @@ const filteredHistory = history.filter((item) =>
   />
 </div>
 
+<div
+  style={{
+    overflowX: "auto",
+    width: "100%",
+  }}
+>
     <table
      style={{
      width: "100%",
@@ -400,6 +411,7 @@ const filteredHistory = history.filter((item) =>
           ))}
         </tbody>
       </table>
+      </div>
 
     {showModal && selectedReport && (
   <div
@@ -421,7 +433,8 @@ const filteredHistory = history.filter((item) =>
         background: "white",
         padding: "30px",
         borderRadius: "15px",
-        width: "700px",
+        width: window.innerWidth < 768 ? "95%" : "700px",
+        padding: window.innerWidth < 768 ? "20px" : "30px",
         maxWidth: "90%",
         maxHeight: "80vh",
         overflowY: "auto",
@@ -432,6 +445,8 @@ const filteredHistory = history.filter((item) =>
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    flexWrap: "wrap",
+    gap: "15px",
     marginBottom: "20px",
     borderBottom: "2px solid #eee",
     paddingBottom: "15px",

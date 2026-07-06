@@ -21,7 +21,7 @@ import {
 
 import "react-circular-progressbar/dist/styles.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
@@ -39,12 +39,21 @@ function Dashboard() {
   const [resumeText, setResumeText] = useState("");
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+  return localStorage.getItem("theme") === "dark";
+});
   const reportRef = useRef();
   const [showPdfReport, setShowPdfReport] = useState(false);
   const headingColor = darkMode
   ? "white"
   : "black";
+
+  useEffect(() => {
+  localStorage.setItem(
+    "theme",
+    darkMode ? "dark" : "light"
+  );
+}, [darkMode]);
 
   const handleUpload = async () => {
     if (!file) {
@@ -168,16 +177,18 @@ const COLORS = [
 
   return (
     <div
-      style={{
-        padding: "20px",
-        maxWidth: "1000px",
-        margin: "auto",
-        fontFamily: "Arial",
-        backgroundColor: darkMode ? "#393838" : "white",
-        color: darkMode ? "white" : "black",
-        minHeight: "100vh",
-      }}
-    >
+  style={{
+    width: "100%",
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "20px",
+    boxSizing: "border-box",
+    fontFamily: "Arial",
+    backgroundColor: darkMode ? "#393838" : "white",
+    color: darkMode ? "white" : "black",
+    minHeight: "100vh",
+  }}
+>
       <div
   style={{
     background: "linear-gradient(135deg, #e0702f, #7c3aed)",
@@ -192,7 +203,7 @@ const COLORS = [
   <h1
     style={{
       margin: 0,
-      fontSize: "48px",
+      fontSize: window.innerWidth < 768 ? "32px" : "48px",
       fontWeight: "bold",
     }}
   >
@@ -201,7 +212,7 @@ const COLORS = [
 
   <p
     style={{
-      fontSize: "24px",
+      fontSize: window.innerWidth < 768 ? "18px" : "24px",
       marginTop: "15px",
       marginBottom: "10px",
     }}
@@ -211,7 +222,7 @@ const COLORS = [
 
   <p
     style={{
-      fontSize: "18px",
+      fontSize: window.innerWidth < 768 ? "16px" : "18px",
       opacity: "0.9",
     }}
   >
@@ -224,6 +235,7 @@ const COLORS = [
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    flexWrap: "wrap",
     gap: "15px",
     marginTop: "20px",
     marginBottom: "30px",
@@ -232,8 +244,11 @@ const COLORS = [
       <button
   onClick={handleLogout}
   style={{
-    backgroundColor: "#ffffff",
-    color: "#ef4444",
+    backgroundColor: darkMode ? "#1f2937" : "#ffffff",
+    color: darkMode ? "#ffffff" : "#ef4444",
+    border: darkMode
+    ? "1px solid #374151"
+    : "1px solid #ef4444",
     padding: "12px 20px",
     border: "1px solid #ef4444",
     borderRadius: "10px",
@@ -248,7 +263,7 @@ const COLORS = [
       <button
   onClick={() => navigate("/profile")}
   style={{
-    backgroundColor: "#2563eb",
+    backgroundColor: darkMode ? "#3b82f6" : "#2563eb",
     color: "white",
     padding: "12px 20px",
     border: "none",
@@ -264,8 +279,8 @@ const COLORS = [
       <button
   onClick={() => setDarkMode(!darkMode)}
   style={{
-    backgroundColor: "#f3f4f6",
-    color: "#111827",
+    backgroundColor: darkMode ? "#facc15" : "#111827",
+    color: darkMode ? "#111827" : "#ffffff",
     padding: "12px 20px",
     border: "none",
     borderRadius: "10px",
@@ -368,11 +383,20 @@ const COLORS = [
 </button>
 </div>
 
+<div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    gap: "15px",
+    marginTop: "20px",
+  }}
+>
 <button
   onClick={() => navigate("/history")}
   style={{
     padding: "14px 18px",
-    background: "#e649d9",
+    background: darkMode ? "#7c3aed" : "#e649d9",
     color: "white",
     border: "none",
     borderRadius: "12px",
@@ -389,8 +413,9 @@ const COLORS = [
     onClick={downloadReport}
     style={{
       marginTop: "15px",
-      background:
-        "linear-gradient(135deg,#22c55e,#16a34a)",
+      background: darkMode
+  ? "#16a34a"
+  : "linear-gradient(135deg,#22c55e,#16a34a)",
       color: "white",
       padding: "12px 25px",
       border: "none",
@@ -403,6 +428,7 @@ const COLORS = [
     📄 Download Report
   </button>
   )}
+  </div>
 
     <div
   ref={reportRef}
@@ -775,8 +801,14 @@ const COLORS = [
       <div
   style={{
     display: "grid",
-    gridTemplateColumns: "220px 220px 220px",
+    gridTemplateColumns:
+    window.innerWidth < 768
+    ? "1fr"
+    : window.innerWidth < 1024
+    ? "1fr 1fr"
+    : "1fr 1fr 1fr",
     justifyContent: "center",
+    width: "100%",
     gap: "12px",
     marginTop: "20px",
     marginBottom: "20px",
@@ -785,11 +817,14 @@ const COLORS = [
   {/* ATS Score Card */}
   <div
     style={{
-      background: "#dbeafe",
+      background: darkMode ? "#1f2937" : "#dbeafe",
+      color: darkMode ? "white" : "black",
       padding: "10px",
       borderRadius: "15px",
       textAlign: "center",
       height: "130px",
+      width: "100%",
+      boxSizing: "border-box",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -823,8 +858,8 @@ const COLORS = [
               : atsScore >= 50
               ? "#f59e0b"
               : "#ef4444",
-          textColor: "#111827",
-          trailColor: "#d1d5db",
+          textColor: darkMode ? "#ffffff" : "#111827",
+          trailColor: darkMode ? "#374151" : "#d1d5db",
         })}
       />
     </div>
@@ -833,8 +868,11 @@ const COLORS = [
   {/* Matched Skills Card */}
   <div
     style={{
-      background:
-  "linear-gradient(135deg,#dcfce7,#bbf7d0)",
+      background: darkMode
+      ? "#1f2937"
+      : "linear-gradient(135deg,#dcfce7,#bbf7d0)",
+
+      color: darkMode ? "white" : "black",
       padding: "10px",
       borderRadius: "15px",
       textAlign: "center",
@@ -867,8 +905,11 @@ const COLORS = [
   {/* Missing Skills Card */}
   <div
     style={{
-      background:
-  "linear-gradient(135deg,#fee2e2,#fecaca)",
+     background: darkMode
+      ? "#1f2937"
+      : "linear-gradient(135deg,#fee2e2,#fecaca)",
+
+      color: darkMode ? "white" : "black",
       padding: "10px",
       borderRadius: "15px",
       textAlign: "center",
@@ -901,11 +942,12 @@ const COLORS = [
 
       <div
         style={{
-          padding: "20px",
+          padding: window.innerWidth < 768 ? "15px" : "20px",
           marginTop: "20px",
           borderRadius: "15px",
           boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
           backgroundColor: darkMode ? "#1e1e1e" : "#f8f9fa",
+          color: darkMode ? "#ffffff" : "#111827",
         }}
       >
         <div
@@ -914,6 +956,7 @@ const COLORS = [
     padding: "20px",
     borderRadius: "15px",
     backgroundColor: darkMode ? "#1e1e1e" : "#ffffff",
+    color: darkMode ? "#ffffff" : "#111827",
     boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
     textAlign: "center",
   }}
@@ -967,7 +1010,10 @@ const COLORS = [
   🧭 Skills Distribution
 </h2>
 
-<ResponsiveContainer width="100%" height={220}>
+<ResponsiveContainer
+  width="100%"
+  height={window.innerWidth < 768 ? 280 : 220}
+>
   <PieChart>
     <Pie
   data={pieData}
@@ -987,27 +1033,40 @@ const COLORS = [
       ))}
     </Pie>
 
-    <Legend />
+    <Legend
+  wrapperStyle={{
+    color: darkMode ? "#ffffff" : "#111827",
+  }}
+/>
   </PieChart>
 </ResponsiveContainer>
   <h2 style={{ color: headingColor }}>
   📄 Resume Content
 </h2>
 
-  <p>
-    Resume Length: {resumeText.length} Characters
-  </p>
+  <p
+  style={{
+    color: darkMode ? "#ffffff" : "#111827",
+  }}
+>
+  Resume Length: {resumeText.length} Characters
+</p>
 
   <textarea
     value={resumeText}
     readOnly
-    rows="12"
+    rows={window.innerWidth < 768 ? 8 : 12}
     style={{
       width: "100%",
       padding: "15px",
       borderRadius: "10px",
       border: "1px solid #1c99b5",
       marginTop: "10px",
+      backgroundColor: darkMode ? "#111827" : "#ffffff",
+      color: darkMode ? "#ffffff" : "#111827",
+      border: darkMode
+      ? "1px solid #374151"
+      : "1px solid #1c99b5",
     }}
   />
 </div>
@@ -1019,6 +1078,7 @@ const COLORS = [
     textAlign: "center",
     marginTop: "20px",
     opacity: "0.8",
+    color: darkMode ? "#d1d5db" : "#111827",
   }}
 >
   AI Resume Analyzer © 2026 | Developed by Ritwik Varshney
