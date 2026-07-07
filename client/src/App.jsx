@@ -23,7 +23,7 @@ export default function App() {
   }, [darkMode]);
 
   return (
-    <GoogleOAuthProvider clientId="171899712924-tks2dq713g0vdpke1hku8073ssnk9i59.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="171899712924-6dmlagik88q919rtimmjdtu5ci7mj140.apps.googleusercontent.com">
       <BrowserRouter>
         <Routes>
           <Route
