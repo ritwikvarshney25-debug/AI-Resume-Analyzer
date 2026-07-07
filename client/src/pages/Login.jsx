@@ -170,33 +170,6 @@ function Login() {
             </a>
           </p>
 
-          <div style={{ marginTop: "20px" }}>
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                console.log(
-                  credentialResponse
-                );
-
-                localStorage.setItem(
-                  "token",
-                  "google-login"
-                );
-                localStorage.setItem(
-                  "name",
-                  "Google User"
-                );
-
-                window.location.href =
-                  "/dashboard";
-              }}
-              onError={() => {
-                alert(
-                  "Google Login Failed"
-                );
-              }}
-            />
-          </div>
-
           <p style={{ marginTop: "20px" }}>
             Don't have an account?{" "}
             <Link to="/register">

@@ -29,6 +29,7 @@ import jsPDF from "jspdf";
 import { useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import Watermark from "../assets/watermark.png";
+import Navbar from "../components/Navbar";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -189,6 +190,12 @@ const COLORS = [
     minHeight: "100vh",
   }}
 >
+  <Navbar
+  darkMode={darkMode}
+  setDarkMode={setDarkMode}
+/>
+    <div style={{ height: "20px" }}></div>
+
       <div
   style={{
     background: "linear-gradient(135deg, #e0702f, #7c3aed)",
@@ -241,56 +248,6 @@ const COLORS = [
     marginBottom: "30px",
   }}
 > 
-      <button
-  onClick={handleLogout}
-  style={{
-    backgroundColor: darkMode ? "#1f2937" : "#ffffff",
-    color: darkMode ? "#ffffff" : "#ef4444",
-    border: darkMode
-    ? "1px solid #374151"
-    : "1px solid #ef4444",
-    padding: "12px 20px",
-    border: "1px solid #ef4444",
-    borderRadius: "10px",
-    cursor: "pointer",
-    fontSize: "16px",
-    fontWeight: "600",
-  }}
->
-  🚪 Logout
-</button>
-
-      <button
-  onClick={() => navigate("/profile")}
-  style={{
-    backgroundColor: darkMode ? "#3b82f6" : "#2563eb",
-    color: "white",
-    padding: "12px 20px",
-    border: "none",
-    borderRadius: "10px",
-    cursor: "pointer",
-    fontSize: "16px",
-    fontWeight: "600",
-  }}
->
-  👤 Profile
-</button>
-
-      <button
-  onClick={() => setDarkMode(!darkMode)}
-  style={{
-    backgroundColor: darkMode ? "#facc15" : "#111827",
-    color: darkMode ? "#111827" : "#ffffff",
-    padding: "12px 20px",
-    border: "none",
-    borderRadius: "10px",
-    cursor: "pointer",
-    fontSize: "16px",
-    fontWeight: "600",
-  }}
->
-  {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
-</button>
       </div>
 
       <h2
